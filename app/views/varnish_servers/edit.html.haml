@@ -1,0 +1,14 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "#{t("web-app-theme.list", :default => "List")}", varnish_servers_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_varnish_server_path
+      %li.active= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_varnish_server_path
+  .content
+    %h2.title
+      = t("web-app-theme.edit", :default => "Edit")
+      VarnishServer
+    .inner
+      = form_for @varnish_server, :url => varnish_server_path(@varnish_server), :html => { :class => :form } do |f|
+        = render :partial => "form", :locals => {:f => f}
+- content_for :sidebar, render(:partial => 'sidebar')

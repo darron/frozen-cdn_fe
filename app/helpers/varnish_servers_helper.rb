@@ -1,0 +1,2 @@
+module VarnishServersHelper
+end

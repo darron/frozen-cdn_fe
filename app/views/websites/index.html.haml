@@ -1,0 +1,37 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", websites_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_website_path
+  .content
+    %h2.title
+      = t("web-app-theme.all", :default => "All")
+      Websites
+    .inner
+      %table.table
+        %tr
+          %th
+            = t("activerecord.attributes.website.weburl", :default => t("activerecord.labels.weburl", :default => "Url"))
+          %th= t("web-app-theme.created_at", :default => "Created at")
+          %th= "CDN Prefix Link"
+          %th.last &nbsp;
+        - @websites.each do |website|
+          %tr{:class => cycle("odd", "even")}
+            %td
+              = link_to website.weburl, website_path(website)
+            %td
+              = time_ago_in_words(website.created_at)
+            %td
+              = cdn_link(website.token)
+              |
+              = link_to("Clear Cache", "/cache/#{website.token}/clear?api_key=#{current_user.api_key}", :confirm => "Are you sure?", :remote => true, :method => 'post')
+            %td.last
+              = link_to "#{t("web-app-theme.show", :default => "Show")}", website_path(website)
+              |
+              \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_website_path(website)}
+              |
+              \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", website_path(website), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
+      .actions-bar.wat-cf
+        .actions
+        = paginate @websites
+- content_for :sidebar, render(:partial => 'sidebar')

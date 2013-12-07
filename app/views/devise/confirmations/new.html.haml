@@ -1,0 +1,18 @@
+%h1 Frozen CDN Fe
+.block#block-signup
+  %h2 Resend confirmation instructions
+  .content
+    .flash
+      - flash.each do |type, message|
+        %div{ :class => "message #{type}" }
+          %p= message
+    = form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :class => "form" }) do |f|
+      .group
+        = f.label :email, :class => "label"
+        = f.text_field :email, :class => "text_field"
+        %span.description Ex. test@example.com
+      .group.navform.wat-cf
+        %button.button{ :type => "submit" }
+          = image_tag "web-app-theme/icons/tick.png"
+          Resend confirmation instructions 
+    = render :partial => "devise/shared/links"

@@ -1,0 +1,37 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first= link_to "#{t("web-app-theme.list", :default => "List")}", websites_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_website_path
+      %li.active= link_to "#{t("web-app-theme.show", :default => "Show")}", website_path
+  .content
+    .inner
+      %p
+        %b
+          = t("activerecord.attributes.website.weburl", :default => t("activerecord.labels.weburl", :default => "Origin Server"))
+          \:
+        = @website.weburl
+      %p
+        %b
+          = t("activerecord.attributes.website.vhost", :default => t("activerecord.labels.vhost", :default => "Virtual Host"))
+          \:
+        = @website.vhost
+      %p
+        %b
+          = t("activerecord.attributes.website.ttl", :default => t("activerecord.labels.ttl", :default => "Ttl"))
+          \:
+        = @website.ttl
+      %p
+        %b
+          = t("activerecord.attributes.website.active", :default => t("activerecord.labels.active", :default => "Active"))
+          \:
+        = @website.active
+      %p
+        %b
+          = t("activerecord.attributes.website.paid", :default => t("activerecord.labels.paid", :default => "Paid"))
+          \:
+        = @website.paid
+      .wat-cf
+        = link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_website_path(@website), :class => "button"
+        = link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), website_path(@website), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"
+- content_for :sidebar, render(:partial => 'sidebar')

@@ -1,0 +1,41 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "#{t("web-app-theme.list", :default => "List")}", varnish_servers_path
+      %li= link_to "#{t("web-app-theme.new", :default => "New")}", new_varnish_server_path
+  .content
+    %h2.title
+      = t("web-app-theme.all", :default => "All")
+      VarnishServers
+    .inner
+      %table.table
+        %tr
+          %th.first
+            = t("activerecord.attributes.varnish_server.title", :default => t("activerecord.labels.title", :default => "Title"))
+          %th= t("web-app-theme.region", :default => "Region") 
+          %th= t("web-app-theme.ip", :default => "IP") 
+          %th= t("web-app-theme.port", :default => "Port")  
+          %th= t("web-app-theme.created_at", :default => "Created at")
+          %th.last &nbsp;
+        - @varnish_servers.each do |varnish_server|
+          %tr{:class => cycle("odd", "even")}
+            %td
+              = link_to varnish_server.title, varnish_server_path(varnish_server)
+            %td
+              = varnish_server.region
+            %td
+              = varnish_server.ip
+            %td
+              = varnish_server.port
+            %td
+              = varnish_server.created_at
+            %td.last
+              = link_to "#{t("web-app-theme.show", :default => "Show")}", varnish_server_path(varnish_server)
+              |
+              \#{link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_varnish_server_path(varnish_server)} |
+              |
+              \#{link_to "#{t("web-app-theme.delete", :default => "Delete")}", varnish_server_path(varnish_server), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}"}
+      .actions-bar.wat-cf
+        .actions
+        = paginate @varnish_servers
+- content_for :sidebar, render(:partial => 'sidebar')
